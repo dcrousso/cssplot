@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="build/cssplot.group.css" type="text/css" media="screen" charset="utf-8" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
 		<style>
-			body { font-family: sans-serif; color: #444444; }
+			body { font-family: sans-serif; color: #444444; margin-bottom: 40px; }
 			.column-chart, .bar-chart, .scatter-plot { margin: 20px; border: 1px solid #3498db; }
 			.scatter-plot, .column-chart { height: 300px; }
 			.bar-chart.stacked [data-cp-size] { min-height: 0.655em; }
@@ -51,7 +51,7 @@
 				</div>
 				<div class="col-lg-6">
 					<div class="column-chart">
-						<ul class="plot-container group-by-number">
+						<ul class="plot-container group-by">
 							<li data-cp-size="1"></li>
 							<li data-cp-size="2" data-group="5"></li>
 							<li data-cp-size="4"></li>
@@ -77,7 +77,7 @@
 				<h2>Stacked Column Chart</h2>
 				<div class="col-lg-6">
 					<div class="column-chart stacked">
-						<ul class="plot-container group-by-number">
+						<ul class="plot-container group-by">
 							<li>
 								<div data-cp-size="99">99%</div>
 							</li>
@@ -113,7 +113,7 @@
 				</div>
 				<div class="col-lg-6">
 					<div class="column-chart stacked">
-						<ul class="plot-container group-by-number">
+						<ul class="plot-container group-by">
 							<li>
 								<div data-cp-size="1"></div>
 								<div data-cp-size="4" data-group="5"></div>
@@ -200,7 +200,7 @@
 				</div>
 				<div class="col-lg-6">
 					<div class="bar-chart">
-						<ul class="plot-container group-by-number">
+						<ul class="plot-container group-by">
 							<li data-cp-size="1"></li>
 							<li data-cp-size="2" data-group="5"></li>
 							<li data-cp-size="4"></li>
@@ -226,7 +226,7 @@
 				<h2>Stacked Bar Chart</h2>
 				<div class="col-lg-6">
 					<div class="bar-chart stacked pad">
-						<ul class="plot-container group-by-number">
+						<ul class="plot-container group-by">
 							<li>
 								<div data-cp-size="100">100%</div>
 							</li>
@@ -251,7 +251,7 @@
 				</div>
 				<div class="col-lg-6">
 					<div class="bar-chart stacked">
-						<ul class="plot-container group-by-number">
+						<ul class="plot-container group-by">
 							<li>
 								<div data-cp-size="1"></div>
 								<div data-cp-size="4" data-group="5"></div>
@@ -364,6 +364,66 @@
 					</div>
 				</div>
 			</div>
+			<div class="row">
+				<h2>Animated Chart</h2>
+				<select id="changeChart">
+					<option value="bar-chart" selected>Bar Chart</option>
+					<option value="column-chart">Column Chart</option>
+				</select>
+				<select id="changeAnimation">
+					<option value="" id="placeholder">Select Animation</option>
+					<option value="fade">Fade</option>
+					<option value="grow">Grow</option>
+					<option value="grow-down">Grow Down</option>
+					<option value="grow-right">Grow Right</option>
+					<option value="grow-up">Grow Up</option>
+					<option value="grow-left">Grow Left</option>
+					<option value="slide-down">Slide Down</option>
+					<option value="slide-right">Slide Right</option>
+					<option value="slide-up">Slide Up</option>
+					<option value="slide-left">Slide Left</option>
+				</select>
+				<div class="col-lg-12">
+					<div id="animatedChart" class="bar-chart">
+						<ul class="plot-container group-by" data-cp-animation="">
+							<li data-cp-timing="1" data-cp-size="1"></li>
+							<li data-cp-timing="2" data-cp-size="2" data-group="5"></li>
+							<li data-cp-timing="3" data-cp-size="4"></li>
+							<li data-cp-timing="4" data-cp-size="8" data-group="5"></li>
+							<li data-cp-timing="5" data-cp-size="16"></li>
+							<li data-cp-timing="6" data-cp-size="32" data-group="5"></li>
+							<li data-cp-timing="7" data-cp-size="64"></li>
+							<li data-cp-timing="8" data-cp-size="100" data-group="5"></li>
+							<li data-cp-timing="9" data-cp-size="90"></li>
+							<li data-cp-timing="10" data-cp-size="80" data-group="5"></li>
+							<li data-cp-timing="11" data-cp-size="70"></li>
+							<li data-cp-timing="12" data-cp-size="60" data-group="5"></li>
+							<li data-cp-timing="13" data-cp-size="50"></li>
+							<li data-cp-timing="14" data-cp-size="40" data-group="5"></li>
+							<li data-cp-timing="15" data-cp-size="30"></li>
+							<li data-cp-timing="16" data-cp-size="20" data-group="5"></li>
+							<li data-cp-timing="17" data-cp-size="10"></li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
+		<script>
+			var changeChart = document.getElementById("changeChart");
+			var chart = document.getElementById("animatedChart");
+			changeChart.addEventListener("change",function(){
+				chart.className = this.value;
+			});
+			var changeAnimation = document.getElementById("changeAnimation");
+			var elements = document.querySelector("[data-cp-animation]");
+			var animationChanged = false;
+			changeAnimation.addEventListener("change",function(){
+				elements.setAttribute("data-cp-animation", this.value);
+				if(!animationChanged) {
+					changeAnimation.removeChild(changeAnimation.children[0]);
+					animationChanged = true;
+				}
+			});
+		</script>
 	</body>
 </html>

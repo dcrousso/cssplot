@@ -409,16 +409,15 @@
 			</div>
 		</div>
 		<script>
-			var changeChart = document.getElementById("changeChart");
 			var chart = document.getElementById("animatedChart");
+			var changeChart = document.getElementById("changeChart");
 			changeChart.addEventListener("change",function(){
 				chart.className = this.value;
 			});
 			var changeAnimation = document.getElementById("changeAnimation");
-			var elements = document.querySelector("[data-cp-animation]");
 			var animationChanged = false;
 			changeAnimation.addEventListener("change",function(){
-				elements.setAttribute("data-cp-animation", this.value);
+				chart.children[0].setAttribute("data-cp-animation", this.value);
 				if(!animationChanged) {
 					changeAnimation.removeChild(changeAnimation.children[0]);
 					animationChanged = true;
